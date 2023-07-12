@@ -13,16 +13,21 @@ function App() {
     try {
       const response = await fetch(`http://www.omdbapi.com/?apikey=dca61bcc&s=${keyword}`);
       if (!response.ok) {
-        throw new Error(response.statusText);
+        throw new Error(`API request failed: ${response.statusText}`);
       }
       const data = await response.json();
       if (data.Response === 'False') {
         throw new Error(data.Error);
       }
       setMovies(data.Search);
-    } catch (err) {
-      console.log(err);
-      alert(err);
+    } catch (error) {
+      if (error instanceof TypeError) {
+        console.log('Network error:', error);
+        alert('Network error. Please check your internet connection.');
+      } else {
+        console.log('Error:', error);
+        alert('An error occurred. Please try again.');
+      }
     }
   };
 
