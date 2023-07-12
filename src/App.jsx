@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import MovieCard from './components/MovieCard';
 import MovieDetailModal from './components/MovieDetailModal';
+import { Button, Container, Col, Row, FormControl, InputGroup } from 'react-bootstrap';
+import { useState } from 'react';
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -40,32 +42,32 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <div className="row mt-5">
-        <div className="col">
+    <Container>
+      <Row className="mt-5">
+        <Col>
           <h1>AVHIRA Movies Db</h1>
-        </div>
-      </div>
+        </Col>
+      </Row>
 
       {/* SEARCH */}
-      <div className="row">
-        <div className="col-md-8">
-          <div className="input-group mb-3">
-            <input type="text" className="form-control input-keyword" placeholder="Search Movie . . ." value={keyword} onChange={(e) => setKeyword(e.target.value)} />
-            <button className="btn btn-primary search-btn" type="button" onClick={handleSearch}>
+      <Row>
+        <Col md={8}>
+          <InputGroup className="mb-3">
+            <FormControl type="text" placeholder="Search Movie . . ." value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+            <Button variant="primary" onClick={handleSearch}>
               Search
-            </button>
-          </div>
-        </div>
-      </div>
+            </Button>
+          </InputGroup>
+        </Col>
+      </Row>
       {/* SEARCH finish */}
 
       {/* CARD */}
-      <div className="row movie-container">{renderMovieCards()}</div>
+      <Row className="movie-container">{renderMovieCards()}</Row>
       {/* CARD finish */}
 
       <MovieDetailModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />
-    </div>
+    </Container>
   );
 }
 
